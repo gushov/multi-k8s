@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t gushov/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true gushov/react-test npm test
+
+after_success:
+  - docker build -t gushov/multi-client ./client
+  - docker build -t gushov/multi-nginx ./nginx
+  - docker build -t gushov/multi-server ./server
+  - docker build -t gushov/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push gushov/multi-client 
+  - docker push gushov/multi-nginx 
+  - docker push gushov/multi-server
+  - docker push gushov/multi-worker 
