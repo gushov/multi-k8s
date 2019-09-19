@@ -7,14 +7,14 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-commonName: routemode.de
-dnsNames:
-  - routemode.de
-  - www.routemode.de
-acme:
-  config:
-    - http01:
-        ingressClass: nginx
-      domains:
-        - routemode.de
-        - www.routemode.de
+  commonName: routemode.de
+  dnsNames:
+    - routemode.de
+    - www.routemode.de
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - routemode.de
+          - www.routemode.de
